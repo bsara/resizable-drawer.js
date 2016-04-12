@@ -20,11 +20,11 @@ Includes support for AMD, CommonJS, and global inclusion via an HTML script tag.
 
 - **NPM:** `$ npm install --save resizable-drawer`
 - **CDN - ES6 (not minified):**
-  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-alpha.0/dist/resizable-drawer.js"></script>`
-  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-alpha.0/dist/resizable-drawer.css"></script>`
+  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-alpha.2/dist/resizable-drawer.js"></script>`
+  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-alpha.2/dist/resizable-drawer.css"></script>`
 - **CDN - ES5 (not minified):**
-  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-alpha.0/dist/resizable-drawer.es5.js"></script>`
-  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-alpha.0/dist/resizable-drawer.css"></script>`
+  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-alpha.2/dist/resizable-drawer.es5.js"></script>`
+  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-alpha.2/dist/resizable-drawer.css"></script>`
 - [**Download**](https://github.com/bsara/resizable-drawer.js/releases)
 
 
