@@ -1,0 +1,22 @@
+/**
+ * Copyright (c) 2016 Brandon Sara (http://bsara.github.io)
+ * Licensed under the CPOL-1.02 (https://github.com/bsara/resizable-drawer.js/blob/master/LICENSE.md)
+ */
+
+.resizable-drawer .resizable-drawer-content {
+  display:    block;
+  overflow-y: auto;
+}
+
+
+.resizable-drawer .resizable-drawer-handle {
+  display: block;
+}
+
+.resizable-drawer .resizable-drawer-handle:hover {
+  cursor: pointer;
+}
+
+.resizable-drawer .resizable-drawer-handle:active {
+  cursor: move;
+}
