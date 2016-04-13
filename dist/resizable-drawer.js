@@ -1,10 +1,9 @@
 /*!
- * resizable-drawer.js (1.0.0-alpha.0)
+ * resizable-drawer.js (1.0.0-beta.0)
  *
  * Copyright (c) 2016 Brandon Sara (http://bsara.github.io)
  * Licensed under the CPOL-1.02 (https://github.com/bsara/resizable-drawer.js/blob/master/LICENSE.md)
  */
-
 export default (function() {
 
   // region Private Constants
@@ -109,6 +108,8 @@ export default (function() {
       $handle.addEventListener('touchstart', boundOnTouchStart);
       $handle.addEventListener('touchmove', boundOnTouchMove);
       $handle.addEventListener('touchend', boundOnTouchEnd);
+
+      $handle.setAttribute('draggable', true);
     }
 
 
@@ -121,6 +122,8 @@ export default (function() {
 
 
       let $handle = _$handle.get(this);
+
+      $handle.removeAttribute('draggable');
 
       $handle.removeEventListener('dragstart', _boundOnDragStart.get(this));
       $handle.removeEventListener('drag', _boundOnDrag.get(this));

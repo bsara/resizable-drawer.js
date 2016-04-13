@@ -1,24 +1,18 @@
 /*!
- * resizable-drawer.js (1.0.0-alpha.0)
+ * resizable-drawer.js (1.0.0-beta.0)
  *
  * Copyright (c) 2016 Brandon Sara (http://bsara.github.io)
  * Licensed under the CPOL-1.02 (https://github.com/bsara/resizable-drawer.js/blob/master/LICENSE.md)
  */
-
 .resizable-drawer .resizable-drawer-content {
   display:    block;
   overflow-y: auto;
 }
 
-
-.resizable-drawer .resizable-drawer-handle {
-  display: block;
-}
-
-.resizable-drawer .resizable-drawer-handle:hover {
+.resizable-drawer .resizable-drawer-handle[draggable='true']:hover {
   cursor: pointer;
 }
 
-.resizable-drawer .resizable-drawer-handle:active {
+.resizable-drawer .resizable-drawer-handle[draggable='true']:active {
   cursor: move;
 }

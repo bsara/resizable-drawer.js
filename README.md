@@ -10,30 +10,93 @@
 
 A simple implementation of a resizable drawer using only native JS and CSS.
 
-**Mobile friendly!**
-
-Includes support for AMD, CommonJS, and global inclusion via an HTML script tag.
+Includes support for AMD, CommonJS, and global inclusion via an HTML script tag
+and is **mobile friendly!**.
 
 
 
 ## Install
 
 - **NPM:** `$ npm install --save resizable-drawer`
-- **CDN - ES6 (not minified):**
-  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-alpha.2/dist/resizable-drawer.js"></script>`
-  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-alpha.2/dist/resizable-drawer.css"></script>`
-- **CDN - ES5 (not minified):**
-  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-alpha.2/dist/resizable-drawer.es5.js"></script>`
-  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-alpha.2/dist/resizable-drawer.css"></script>`
+- **Bower:** `$ bower install --save resizable-drawer`
+- **CDN - ES6:**
+  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-beta.0/dist/resizable-drawer.js"></script>`
+  - `<link rel="stylesheet" type="text/css" src="//npmcdn.com/resizable-drawer@1.0.0-beta.0/dist/resizable-drawer.min.css">`
+- **CDN - ES5:**
+  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-beta.0/dist/resizable-drawer.es5.js"></script>`
+  - `<link rel="stylesheet" type="text/css" src="//npmcdn.com/resizable-drawer@1.0.0-beta.0/dist/resizable-drawer.min.css">`
 - [**Download**](https://github.com/bsara/resizable-drawer.js/releases)
 
 
-## Features
+## Basic Usage
 
-- Built with fully native, pure JavaScript and CSS! No extra libraries needed!
-- Works with touches on mobile browsers!
-- ***TODO: Finish Features List***
-- Support for...
-    - AMD
-    - CommonJS
-    - Global HTML script tag
+#### JavaScript
+
+```javascript
+import ResizableDrawer from 'resizable-drawer';
+
+
+let myResizableDrawer = new ResizableDrawer(document.querySelector('#myResizableDrawerElement'));
+
+...
+
+myResizableDrawer.destroy();
+```
+
+#### HTML
+
+```html
+<link rel="stylesheet" type="text/css" src="resizable-drawer.min.css">
+
+...
+
+<div id="myResizableDrawerElement" class=".resizable-drawer">
+  <div class="resizable-drawer-content">...</div>
+  <div class="resizable-drawer-handle">&hellip;</div>
+</div>
+```
+
+
+## Advanced Usage
+
+#### JavaScript
+
+```javascript
+import ResizableDrawer from 'resizable-drawer';
+
+
+let myResizableDrawer = new ResizableDrawer({
+  el:                    document.querySelector('#myResizableDrawerElement'),
+  contentOriginalHeight: 250,
+  contentMinHeight:      150
+});
+
+...
+
+myResizableDrawer.destroy();
+```
+
+#### HTML
+
+```html
+<link rel="stylesheet" type="text/css" src="resizable-drawer.min.css">
+
+...
+
+<div id="myResizableDrawerElement" class=".resizable-drawer">
+  <div class="resizable-drawer-content">...</div>
+  <div class="resizable-drawer-handle">&hellip;</div>
+</div>
+```
+
+
+
+## Building the Project
+
+The project is built using [Gulp.js](http://gulpjs.com/). To install
+Gulp.js, see [the Gulp.js "Getting Started" docs](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md).
+
+Run the following at the root of the project for a list of available
+gulp tasks:
+
+    $ gulp help

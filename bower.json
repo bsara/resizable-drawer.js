@@ -1,0 +1,33 @@
+{
+  "name": "resizable-drawer",
+  "version": "1.0.0-beta.0",
+  "description": "A simple implementation of a resizable drawer using only native JS and CSS.",
+  "authors": [
+    "Brandon Sara (http://bsara.github.io)"
+  ],
+  "license": "CPOL-1.02",
+  "homepage": "https://github.com/bsara/resizable-drawer.js#readme",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bsara/resizable-drawer.js.git"
+  },
+  "keywords": [
+    "resize",
+    "resizable",
+    "drawer"
+  ],
+  "main": "dist/resizable-drawer.js",
+  "files": [
+    "/dist/*.js",
+    "/dist/*.css",
+    "/LICENSE",
+    "/README.md"
+  ],
+  "ignore": [
+    "**/*",
+    "!/dist/*.js",
+    "!/dist/*.css",
+    "!/LICENSE",
+    "!/README.md"
+  ]
+}
