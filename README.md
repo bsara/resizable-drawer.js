@@ -30,10 +30,6 @@ and is **mobile friendly!**.
 
 ## Basic Usage
 
-**[JS Bin Demo](http://output.jsbin.com/rokuyu)**
-
-<br/>
-
 #### JavaScript
 
 ```javascript
@@ -59,6 +55,9 @@ myResizableDrawer.destroy();
   <div class="resizable-drawer-handle">&hellip;</div>
 </div>
 ```
+
+<a class="jsbin-embed" href="http://jsbin.com/rokuyu/embed?output">JS Bin on jsbin.com</a>
+<script src="http://static.jsbin.com/js/embed.min.js?3.35.12"></script>
 
 
 ## Advanced Usage
