@@ -49,10 +49,15 @@ export default (function() {
   class ResizableDrawer {
 
     /**
-     * [constructor description]
-     * @param  {[type]} options.contentMinHeight [description]
+     * @param {Object|HTMLElement} options - TODO: Add description
      *
-     * @throws {TypeError} If `el` is not given.
+     * @param {HTMLElement} options.el                      - TODO: Add description
+     * @param {Number}      [options.contentOriginalHeight] - TODO: Add description
+     * @param {Number}      [options.contentMinHeight = 0]  - TODO: Add description
+     * @param {Boolean}     [options.startEnabled = true]   - TODO: Add description
+     * @param {Boolean}     [options.startOpen = true]      - TODO: Add description
+     *
+     * @throws {TypeError} If `el` is not given and options is not of type `HTMLElement`.
      *
      * @constructor
      */
@@ -111,7 +116,7 @@ export default (function() {
 
     /**
      * Opens the drawer (only has any effect if a specific `contentMinHeight`
-     * is given upon object creation)
+     * is given upon object creation).
      *
      * @param {Boolean} [silent = false] - TODO: Add description
      */
@@ -136,7 +141,7 @@ export default (function() {
 
 
     /**
-     * Closes the drawer
+     * Closes the drawer.
      *
      * @param {Boolean} [silent = false] - TODO: Add description
      */
@@ -161,7 +166,26 @@ export default (function() {
 
 
     /**
-     * Enables the resizable functionality of the drawer
+     * Toggles the drawer to be open if it is closed, and closed
+     * if it is open.
+     *
+     * @param {Boolean} [silent = false] - TODO: Add description
+     */
+    toggleOpenClosed(silent) {
+      if (this.isDestroyed) {
+        return;
+      }
+
+      if (this.isOpen) {
+        this.close(silent);
+        return;
+      }
+      this.open(silent);
+    }
+
+
+    /**
+     * Enables the resizable functionality of the drawer.
      *
      * @param {Boolean} [silent = false] - TODO: Add description
      */
@@ -191,7 +215,7 @@ export default (function() {
 
 
     /**
-     * Disables the resizable functionality of the drawer
+     * Disables the resizable functionality of the drawer.
      *
      * @param {Boolean} [silent = false] - TODO: Add description
      */
@@ -217,6 +241,25 @@ export default (function() {
       if (!silent) {
         _triggerEvent.call(this, 'disable');
       }
+    }
+
+
+    /**
+     * Toggles the drawer to be enabled if it is disabled, and disabled
+     * if it is enabled.
+     *
+     * @param {Boolean} [silent = false] - TODO: Add description
+     */
+    toggleEnabled(silent) {
+      if (this.isDestroyed) {
+        return;
+      }
+
+      if (this.isEnabled) {
+        this.disable(silent);
+        return;
+      }
+      this.enable(silent);
     }
 
 

@@ -1,5 +1,5 @@
 /*!
- * resizable-drawer.js (1.0.0-beta.6)
+ * resizable-drawer.js (1.0.0-beta.7)
  *
  * Copyright (c) 2016 Brandon Sara (http://bsara.github.io)
  * Licensed under the CPOL-1.02 (https://github.com/bsara/resizable-drawer.js/blob/master/LICENSE.md)
@@ -102,10 +102,15 @@
     var ResizableDrawer = function () {
 
       /**
-       * [constructor description]
-       * @param  {[type]} options.contentMinHeight [description]
+       * @param {Object|HTMLElement} options - TODO: Add description
        *
-       * @throws {TypeError} If `el` is not given.
+       * @param {HTMLElement} options.el                      - TODO: Add description
+       * @param {Number}      [options.contentOriginalHeight] - TODO: Add description
+       * @param {Number}      [options.contentMinHeight = 0]  - TODO: Add description
+       * @param {Boolean}     [options.startEnabled = true]   - TODO: Add description
+       * @param {Boolean}     [options.startOpen = true]      - TODO: Add description
+       *
+       * @throws {TypeError} If `el` is not given and options is not of type `HTMLElement`.
        *
        * @constructor
        */
@@ -165,7 +170,7 @@
 
       /**
        * Opens the drawer (only has any effect if a specific `contentMinHeight`
-       * is given upon object creation)
+       * is given upon object creation).
        *
        * @param {Boolean} [silent = false] - TODO: Add description
        */
@@ -193,7 +198,7 @@
         }
 
         /**
-         * Closes the drawer
+         * Closes the drawer.
          *
          * @param {Boolean} [silent = false] - TODO: Add description
          */
@@ -220,7 +225,28 @@
         }
 
         /**
-         * Enables the resizable functionality of the drawer
+         * Toggles the drawer to be open if it is closed, and closed
+         * if it is open.
+         *
+         * @param {Boolean} [silent = false] - TODO: Add description
+         */
+
+      }, {
+        key: 'toggleOpenClosed',
+        value: function toggleOpenClosed(silent) {
+          if (this.isDestroyed) {
+            return;
+          }
+
+          if (this.isOpen) {
+            this.close(silent);
+            return;
+          }
+          this.open(silent);
+        }
+
+        /**
+         * Enables the resizable functionality of the drawer.
          *
          * @param {Boolean} [silent = false] - TODO: Add description
          */
@@ -252,7 +278,7 @@
         }
 
         /**
-         * Disables the resizable functionality of the drawer
+         * Disables the resizable functionality of the drawer.
          *
          * @param {Boolean} [silent = false] - TODO: Add description
          */
@@ -281,6 +307,27 @@
           if (!silent) {
             _triggerEvent.call(this, 'disable');
           }
+        }
+
+        /**
+         * Toggles the drawer to be enabled if it is disabled, and disabled
+         * if it is enabled.
+         *
+         * @param {Boolean} [silent = false] - TODO: Add description
+         */
+
+      }, {
+        key: 'toggleEnabled',
+        value: function toggleEnabled(silent) {
+          if (this.isDestroyed) {
+            return;
+          }
+
+          if (this.isEnabled) {
+            this.disable(silent);
+            return;
+          }
+          this.enable(silent);
         }
 
         /**
