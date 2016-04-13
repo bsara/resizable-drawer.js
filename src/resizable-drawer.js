@@ -236,7 +236,7 @@ export default (function() {
       }
 
 
-      this.disable(silent);
+      this.disable(true);
 
 
       _isNotDestroyed.delete(this);
