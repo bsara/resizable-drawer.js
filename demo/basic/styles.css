@@ -3,6 +3,12 @@ body {
 }
 
 
+main {
+  max-width: 750px;
+  margin: auto;
+}
+
+
 nav a {
   font-size:       0.90rem;
   text-decoration: none;
