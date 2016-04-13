@@ -9,6 +9,8 @@ export default (function() {
 
   // region Private Property WeakMaps
 
+  let _events = new WeakMap();
+
   let _$el      = new WeakMap();
   let _$content = new WeakMap();
   let _$handle  = new WeakMap();
@@ -19,6 +21,9 @@ export default (function() {
   let _contentStartScrollTop = new WeakMap();
 
   let _cursorStartPosY = new WeakMap();
+
+  let _isEnabled = new WeakMap();
+  let _isOpen    = new WeakMap();
 
   let _isNotDestroyed = new WeakMap();
 
@@ -51,7 +56,7 @@ export default (function() {
      *
      * @constructor
      */
-    constructor({el, contentOriginalHeight, contentMinHeight = 0}) {
+    constructor({el, contentOriginalHeight, contentMinHeight = 0, startEnabled = true, startOpen = true}) {
       if (new.target == null) {
         return new ResizableDrawer.apply(this, arguments);
       }
@@ -70,62 +75,174 @@ export default (function() {
       this.contentMinHeight = contentMinHeight;
 
 
-      let boundOnDragStart = _onDragStart.bind(this);
-      let boundOnDrag      = _onDrag.bind(this);
-      let boundOnDragEnd   = _onDragEnd.bind(this);
-
-      let boundOnTouchStart = _onTouchStart.bind(this);
-      let boundOnTouchMove  = _onTouchMove.bind(this);
-      let boundOnTouchEnd   = _onTouchEnd.bind(this);
-
-      _boundOnDragStart.set(this, boundOnDragStart);
-      _boundOnDrag.set(this, boundOnDrag);
-      _boundOnDragEnd.set(this, boundOnDragEnd);
-
-      _boundOnTouchStart.set(this, boundOnTouchStart);
-      _boundOnTouchMove.set(this, boundOnTouchMove);
-      _boundOnTouchEnd.set(this, boundOnTouchEnd);
+      _events.set(this, {});
 
 
       _$el.set(this, el);
       _$content.set(this, this.$el.querySelector('.resizable-drawer-content'));
+      _$handle.set(this, this.$el.querySelector('.resizable-drawer-handle'));
 
 
-      let $handle = this.$el.querySelector('.resizable-drawer-handle');
+      _boundOnDragStart.set(this, _onDragStart.bind(this));
+      _boundOnDrag.set(this, _onDrag.bind(this));
+      _boundOnDragEnd.set(this, _onDragEnd.bind(this));
 
-      _$handle.set(this, $handle);
+      _boundOnTouchStart.set(this, _onTouchStart.bind(this));
+      _boundOnTouchMove.set(this, _onTouchMove.bind(this));
+      _boundOnTouchEnd.set(this, _onTouchEnd.bind(this));
 
-      $handle.addEventListener('dragstart', boundOnDragStart);
-      $handle.addEventListener('drag', boundOnDrag);
-      $handle.addEventListener('dragend', boundOnDragEnd);
 
-      $handle.addEventListener('touchstart', boundOnTouchStart);
-      $handle.addEventListener('touchmove', boundOnTouchMove);
-      $handle.addEventListener('touchend', boundOnTouchEnd);
 
-      $handle.setAttribute('draggable', true);
+      if (startEnabled) {
+        this.enable(true);
+      } else {
+        _isEnabled.set(this, false);
+      }
+
+
+      if (startOpen) {
+        this.open(true);
+      } else {
+        _isOpen.set(this, false);
+      }
     }
 
 
 
-    destroy() {
-      _isNotDestroyed.delete(this);
+    /**
+     * Opens the drawer (only has any effect if a specific `contentMinHeight`
+     * is given upon object creation)
+     *
+     * @param {Boolean} [silent = false] - TODO: Add description
+     */
+    open(silent) {
+      if (this.isDestroyed) {
+        return;
+      }
+
+      let $content = _$content.get(this);
+
+      $content.style.height   = '';
+      $content.style.padding  = '';
+      $content.style.border   = '';
+      $content.style.overflow = '';
+
+      _isOpen.set(this, true);
+
+      if (!silent) {
+        _triggerEvent.call(this, 'open');
+      }
+    }
 
 
-      _$content.get(this).removeEventListener('scroll', _boundOnScrollContentWhileDragging.get(this));
+    /**
+     * Closes the drawer
+     *
+     * @param {Boolean} [silent = false] - TODO: Add description
+     */
+    close(silent) {
+      if (this.isDestroyed) {
+        return;
+      }
 
+      let $content = _$content.get(this);
+
+      $content.style.height   = '0';
+      $content.style.padding  = '0';
+      $content.style.border   = 'none';
+      $content.style.overflow = 'hidden';
+
+      _isOpen.set(this, false);
+
+      if (!silent) {
+        _triggerEvent.call(this, 'close');
+      }
+    }
+
+
+    /**
+     * Enables the resizable functionality of the drawer
+     *
+     * @param {Boolean} [silent = false] - TODO: Add description
+     */
+    enable(silent) {
+      if (this.isDestroyed) {
+        return;
+      }
+
+      let $handle = _$handle.get(this);
+
+      $handle.addEventListener('dragstart', _boundOnDragStart.get(this));
+      $handle.addEventListener('drag',      _boundOnDrag.get(this));
+      $handle.addEventListener('dragend',   _boundOnDragEnd.get(this));
+
+      $handle.addEventListener('touchstart', _boundOnTouchStart.get(this));
+      $handle.addEventListener('touchmove',  _boundOnTouchMove.get(this));
+      $handle.addEventListener('touchend',   _boundOnTouchEnd.get(this));
+
+      $handle.setAttribute('draggable', true);
+
+      _isEnabled.set(this, true);
+
+      if (!silent) {
+        _triggerEvent.call(this, 'enable');
+      }
+    }
+
+
+    /**
+     * Disables the resizable functionality of the drawer
+     *
+     * @param {Boolean} [silent = false] - TODO: Add description
+     */
+    disable(silent) {
+      if (this.isDestroyed) {
+        return;
+      }
 
       let $handle = _$handle.get(this);
 
       $handle.removeAttribute('draggable');
 
       $handle.removeEventListener('dragstart', _boundOnDragStart.get(this));
-      $handle.removeEventListener('drag', _boundOnDrag.get(this));
-      $handle.removeEventListener('dragend', _boundOnDragEnd.get(this));
+      $handle.removeEventListener('drag',      _boundOnDrag.get(this));
+      $handle.removeEventListener('dragend',   _boundOnDragEnd.get(this));
 
       $handle.removeEventListener('touchstart', _boundOnTouchStart.get(this));
-      $handle.removeEventListener('touchmove', _boundOnTouchMove.get(this));
-      $handle.removeEventListener('touchend', _boundOnTouchEnd.get(this));
+      $handle.removeEventListener('touchmove',  _boundOnTouchMove.get(this));
+      $handle.removeEventListener('touchend',   _boundOnTouchEnd.get(this));
+
+      _isEnabled.set(this, false);
+
+      if (!silent) {
+        _triggerEvent.call(this, 'disable');
+      }
+    }
+
+
+    /**
+     * Destroys this object, removing all changes it has made to all DOM elements
+     * and clearing up all memory that it was using.
+     *
+     * *WARNING:* Calling this function will result in the object becoming unusable!
+     * If you want to just disable the resizable functionality temporarily, use the
+     * `disable` & `enable` functions.
+     *
+     * @param {Boolean} [silent = false] - TODO: Add description
+     */
+    destroy(silent) {
+      if (this.isDestroyed) {
+        return;
+      }
+
+
+      this.disable(silent);
+
+
+      _isNotDestroyed.delete(this);
+
+
+      _$content.get(this).removeEventListener('scroll', _boundOnScrollContentWhileDragging.get(this));
 
 
       _$el.delete(this);
@@ -148,6 +265,14 @@ export default (function() {
       _boundOnTouchStart.delete(this);
       _boundOnTouchMove.delete(this);
       _boundOnTouchEnd.delete(this);
+
+
+      if (!silent) {
+        _triggerEvent.call(this, 'destroy');
+      }
+
+
+      _events.delete(this);
     }
 
 
@@ -155,43 +280,105 @@ export default (function() {
 
     /** @returns {HTMLElement} - The `HTMLElement` represented by this object. */
     get $el() {
-      return _$el.get(this);
+      return (this.isDestroyed ? undefined : _$el.get(this));
     }
 
 
     /** @returns {Number} - The "original" height of the drawer content element (in pixels). */
     get contentOriginalHeight() {
-      return _contentOriginalHeight.get(this);
+      return (this.isDestroyed ? undefined : _contentOriginalHeight.get(this));
     }
 
 
     /** @param {Number} value - The "original" height of the drawer contentElement (in pixels). */
     set contentOriginalHeight(value) {
+      if (this.isDestroyed) {
+        return;
+      }
+
       if (typeof value !== 'number' && !(value instanceof Number)) {
         throw new TypeError(`'contentOriginalHeight' must be a Number, but a ${typeof value} was given.`);
       }
+
       _contentOriginalHeight.set(this, value);
     }
 
 
     /** @returns {Number} - The minimum height of the drawer content element (in pixels). */
     get contentMinHeight() {
-      return _contentMinHeight.get(this);
+      return (this.isDestroyed ? undefined : _contentMinHeight.get(this));
     }
 
 
     /** @param {Number} value - The minimum height of the drawer contentElement (in pixels). */
     set contentMinHeight(value) {
+      if (this.isDestroyed) {
+        return;
+      }
+
       if (typeof value !== 'number' && !(value instanceof Number)) {
         throw new TypeError(`'contentMinHeight' must be a Number, but a ${typeof value} was given.`);
       }
+
       _contentMinHeight.set(this, value);
+    }
+
+
+    /** @returns {Boolean} */
+    get isEnabled() {
+      return (!this.isDestroyed && _isEnabled.get(this) === true);
+    }
+
+
+    /** @returns {Boolean} */
+    get isOpen() {
+      return (!this.isDestroyed && _isOpen.get(this) === true);
     }
 
 
     /** @returns {Boolean} */
     get isDestroyed() {
       return (_isNotDestroyed.get(this) !== true);
+    }
+
+
+    /**
+     * TODO: Add description
+     *
+     * @param  {String}   eventName    - TODO: Add description
+     * @param  {Function} eventHandler - TODO: Add description
+     */
+    addEventListener(eventName, eventHandler) {
+      let events        = _events.get(this);
+      let eventHandlers = events[eventName];
+
+      if (eventHandlers == null) {
+        eventHandlers = events[eventName] = new Set();
+      }
+
+      eventHandlers.add(eventHandler);
+    }
+
+
+    /**
+     * TODO: Add description
+     *
+     * @param  {String}   eventName    - TODO: Add description
+     * @param  {Function} eventHandler - TODO: Add description
+     */
+    removeEventListener(eventName, eventHandler) {
+      let events        = _events.get(this);
+      let eventHandlers = events[eventName];
+
+      if (eventHandlers == null) {
+        return;
+      }
+
+      eventHandlers.delete(eventHandler);
+
+      if (eventHandlers.size === 0) {
+        delete events[eventName];
+      }
     }
 
     // endregion
@@ -234,6 +421,20 @@ export default (function() {
     _$content.get(this).removeEventListener('scroll', _boundOnScrollContentWhileDragging.get(this));
 
     _boundOnScrollContentWhileDragging.delete(this);
+  }
+
+
+  /** @private */
+  function _triggerEvent(eventName, ...args) {
+    let eventHandlers = _events.get(this)[eventName];
+
+    if (eventHandlers == null) {
+      return;
+    }
+
+    eventHandlers.forEach((eventHandler) => {
+      Promise.resolve().then(() => eventHandler(this, ...args));
+    });
   }
 
 

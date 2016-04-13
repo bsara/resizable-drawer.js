@@ -68,9 +68,9 @@ import ResizableDrawer from 'resizable-drawer';
 
 
 let myResizableDrawer = new ResizableDrawer({
-  el:                    document.querySelector('#myResizableDrawerElement'),
+  el: document.querySelector('#myResizableDrawerElement'),
   contentOriginalHeight: 250,
-  contentMinHeight:      150
+  contentMinHeight: 150
 });
 
 ...
