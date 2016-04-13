@@ -20,11 +20,11 @@ script tag and is **mobile friendly!**.
 - **NPM:** `$ npm install --save resizable-drawer`
 - **Bower:** `$ bower install --save resizable-drawer`
 - **CDN - ES6:**
-  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-beta.7/dist/resizable-drawer.js"></script>`
-  - `<link rel="stylesheet" type="text/css" src="//npmcdn.com/resizable-drawer@1.0.0-beta.7/dist/resizable-drawer.min.css">`
+  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-beta.8/dist/resizable-drawer.js"></script>`
+  - `<link rel="stylesheet" type="text/css" src="//npmcdn.com/resizable-drawer@1.0.0-beta.8/dist/resizable-drawer.min.css">`
 - **CDN - ES5:**
-  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-beta.7/dist/resizable-drawer.es5.js"></script>`
-  - `<link rel="stylesheet" type="text/css" src="//npmcdn.com/resizable-drawer@1.0.0-beta.7/dist/resizable-drawer.min.css">`
+  - `<script src="//npmcdn.com/resizable-drawer@1.0.0-beta.8/dist/resizable-drawer.es5.js"></script>`
+  - `<link rel="stylesheet" type="text/css" src="//npmcdn.com/resizable-drawer@1.0.0-beta.8/dist/resizable-drawer.min.css">`
 - [**Download**](https://github.com/bsara/resizable-drawer.js/releases)
 
 

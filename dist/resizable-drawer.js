@@ -1,5 +1,5 @@
 /*!
- * resizable-drawer.js (1.0.0-beta.7)
+ * resizable-drawer.js (1.0.0-beta.8)
  *
  * Copyright (c) 2016 Brandon Sara (http://bsara.github.io)
  * Licensed under the CPOL-1.02 (https://github.com/bsara/resizable-drawer.js/blob/master/LICENSE.md)
@@ -9,6 +9,13 @@ export default (function() {
   // region Private Constants
 
   const DRAG_ICON = document.createElement('img');
+
+  const CSS_CLASS_CONTENT  = 'resizable-drawer-content';
+  const CSS_CLASS_HANDLE   = 'resizable-drawer-handle';
+  const CSS_CLASS_CLOSED   = 'resizable-drawer-closed';
+  const CSS_CLASS_OPEN     = 'resizable-drawer-open';
+  const CSS_CLASS_ENABLED  = 'resizable-drawer-enabled';
+  const CSS_CLASS_DISABLED = 'resizable-drawer-enabled';
 
   // endregion
 
@@ -90,8 +97,8 @@ export default (function() {
 
 
       _$el.set(this, el);
-      _$content.set(this, this.$el.querySelector('.resizable-drawer-content'));
-      _$handle.set(this, this.$el.querySelector('.resizable-drawer-handle'));
+      _$content.set(this, this.$el.querySelector(`.${CSS_CLASS_CONTENT}`));
+      _$handle.set(this, this.$el.querySelector(`.${CSS_CLASS_HANDLE}`));
 
 
       _boundOnDragStart.set(this, _onDragStart.bind(this));
@@ -131,14 +138,10 @@ export default (function() {
         return;
       }
 
-      let $content = _$content.get(this);
-
-      $content.style.height   = '';
-      $content.style.padding  = '';
-      $content.style.border   = '';
-      $content.style.overflow = '';
-
       _isOpen.set(this, true);
+
+      this.$el.classList.remove(CSS_CLASS_CLOSED);
+      this.$el.classList.add(CSS_CLASS_OPEN);
 
       if (!silent) {
         _triggerEvent.call(this, 'open');
@@ -156,14 +159,12 @@ export default (function() {
         return;
       }
 
-      let $content = _$content.get(this);
-
-      $content.style.height   = '0';
-      $content.style.padding  = '0';
-      $content.style.border   = 'none';
-      $content.style.overflow = 'hidden';
+      _$content.get(this).style.height = '';
 
       _isOpen.set(this, false);
+
+      this.$el.classList.remove(CSS_CLASS_OPEN);
+      this.$el.classList.add(CSS_CLASS_CLOSED);
 
       if (!silent) {
         _triggerEvent.call(this, 'close');
@@ -200,6 +201,7 @@ export default (function() {
         return;
       }
 
+
       let $handle = _$handle.get(this);
 
       $handle.addEventListener('dragstart', _boundOnDragStart.get(this));
@@ -212,7 +214,13 @@ export default (function() {
 
       $handle.setAttribute('draggable', true);
 
+
       _isEnabled.set(this, true);
+
+
+      this.$el.classList.remove(CSS_CLASS_DISABLED);
+      this.$el.classList.add(CSS_CLASS_ENABLED);
+
 
       if (!silent) {
         _triggerEvent.call(this, 'enable');
@@ -230,6 +238,7 @@ export default (function() {
         return;
       }
 
+
       let $handle = _$handle.get(this);
 
       $handle.removeAttribute('draggable');
@@ -242,7 +251,13 @@ export default (function() {
       $handle.removeEventListener('touchmove',  _boundOnTouchMove.get(this));
       $handle.removeEventListener('touchend',   _boundOnTouchEnd.get(this));
 
+
       _isEnabled.set(this, false);
+
+
+      this.$el.classList.remove(CSS_CLASS_ENABLED);
+      this.$el.classList.add(CSS_CLASS_DISABLED);
+
 
       if (!silent) {
         _triggerEvent.call(this, 'disable');

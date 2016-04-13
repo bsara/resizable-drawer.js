@@ -29,6 +29,7 @@
   "files": [
     "/dist/*.js",
     "/dist/*.css",
+    "/dist/*.map",
     "/LICENSE",
     "/README.md"
   ],
