@@ -1,5 +1,5 @@
 /*!
- * resizable-drawer.js (1.0.0-beta.0)
+ * resizable-drawer.js (1.0.0-beta.2)
  *
  * Copyright (c) 2016 Brandon Sara (http://bsara.github.io)
  * Licensed under the CPOL-1.02 (https://github.com/bsara/resizable-drawer.js/blob/master/LICENSE.md)
@@ -63,6 +63,8 @@
 
     // region Private Property WeakMaps
 
+    var _events = new WeakMap();
+
     var _$el = new WeakMap();
     var _$content = new WeakMap();
     var _$handle = new WeakMap();
@@ -73,6 +75,9 @@
     var _contentStartScrollTop = new WeakMap();
 
     var _cursorStartPosY = new WeakMap();
+
+    var _isEnabled = new WeakMap();
+    var _isOpen = new WeakMap();
 
     var _isNotDestroyed = new WeakMap();
 
@@ -110,6 +115,10 @@
         var contentOriginalHeight = _ref.contentOriginalHeight;
         var _ref$contentMinHeight = _ref.contentMinHeight;
         var contentMinHeight = _ref$contentMinHeight === undefined ? 0 : _ref$contentMinHeight;
+        var _ref$startEnabled = _ref.startEnabled;
+        var startEnabled = _ref$startEnabled === undefined ? true : _ref$startEnabled;
+        var _ref$startOpen = _ref.startOpen;
+        var startOpen = _ref$startOpen === undefined ? true : _ref$startOpen;
 
         _classCallCheck(this, ResizableDrawer);
 
@@ -127,46 +136,133 @@
 
         this.contentMinHeight = contentMinHeight;
 
-        var boundOnDragStart = _onDragStart.bind(this);
-        var boundOnDrag = _onDrag.bind(this);
-        var boundOnDragEnd = _onDragEnd.bind(this);
-
-        var boundOnTouchStart = _onTouchStart.bind(this);
-        var boundOnTouchMove = _onTouchMove.bind(this);
-        var boundOnTouchEnd = _onTouchEnd.bind(this);
-
-        _boundOnDragStart.set(this, boundOnDragStart);
-        _boundOnDrag.set(this, boundOnDrag);
-        _boundOnDragEnd.set(this, boundOnDragEnd);
-
-        _boundOnTouchStart.set(this, boundOnTouchStart);
-        _boundOnTouchMove.set(this, boundOnTouchMove);
-        _boundOnTouchEnd.set(this, boundOnTouchEnd);
+        _events.set(this, {});
 
         _$el.set(this, el);
         _$content.set(this, this.$el.querySelector('.resizable-drawer-content'));
+        _$handle.set(this, this.$el.querySelector('.resizable-drawer-handle'));
 
-        var $handle = this.$el.querySelector('.resizable-drawer-handle');
+        _boundOnDragStart.set(this, _onDragStart.bind(this));
+        _boundOnDrag.set(this, _onDrag.bind(this));
+        _boundOnDragEnd.set(this, _onDragEnd.bind(this));
 
-        _$handle.set(this, $handle);
+        _boundOnTouchStart.set(this, _onTouchStart.bind(this));
+        _boundOnTouchMove.set(this, _onTouchMove.bind(this));
+        _boundOnTouchEnd.set(this, _onTouchEnd.bind(this));
 
-        $handle.addEventListener('dragstart', boundOnDragStart);
-        $handle.addEventListener('drag', boundOnDrag);
-        $handle.addEventListener('dragend', boundOnDragEnd);
+        if (startEnabled) {
+          this.enable(true);
+        } else {
+          _isEnabled.set(this, false);
+        }
 
-        $handle.addEventListener('touchstart', boundOnTouchStart);
-        $handle.addEventListener('touchmove', boundOnTouchMove);
-        $handle.addEventListener('touchend', boundOnTouchEnd);
-
-        $handle.setAttribute('draggable', true);
+        if (startOpen) {
+          this.open(true);
+        } else {
+          _isOpen.set(this, false);
+        }
       }
 
-      _createClass(ResizableDrawer, [{
-        key: 'destroy',
-        value: function destroy() {
-          _isNotDestroyed.delete(this);
+      /**
+       * Opens the drawer (only has any effect if a specific `contentMinHeight`
+       * is given upon object creation)
+       *
+       * @param {Boolean} [silent = false] - TODO: Add description
+       */
 
-          _$content.get(this).removeEventListener('scroll', _boundOnScrollContentWhileDragging.get(this));
+
+      _createClass(ResizableDrawer, [{
+        key: 'open',
+        value: function open(silent) {
+          if (this.isDestroyed) {
+            return;
+          }
+
+          var $content = _$content.get(this);
+
+          $content.style.height = '';
+          $content.style.padding = '';
+          $content.style.border = '';
+          $content.style.overflow = '';
+
+          _isOpen.set(this, true);
+
+          if (!silent) {
+            _triggerEvent.call(this, 'open');
+          }
+        }
+
+        /**
+         * Closes the drawer
+         *
+         * @param {Boolean} [silent = false] - TODO: Add description
+         */
+
+      }, {
+        key: 'close',
+        value: function close(silent) {
+          if (this.isDestroyed) {
+            return;
+          }
+
+          var $content = _$content.get(this);
+
+          $content.style.height = '0';
+          $content.style.padding = '0';
+          $content.style.border = 'none';
+          $content.style.overflow = 'hidden';
+
+          _isOpen.set(this, false);
+
+          if (!silent) {
+            _triggerEvent.call(this, 'close');
+          }
+        }
+
+        /**
+         * Enables the resizable functionality of the drawer
+         *
+         * @param {Boolean} [silent = false] - TODO: Add description
+         */
+
+      }, {
+        key: 'enable',
+        value: function enable(silent) {
+          if (this.isDestroyed) {
+            return;
+          }
+
+          var $handle = _$handle.get(this);
+
+          $handle.addEventListener('dragstart', _boundOnDragStart.get(this));
+          $handle.addEventListener('drag', _boundOnDrag.get(this));
+          $handle.addEventListener('dragend', _boundOnDragEnd.get(this));
+
+          $handle.addEventListener('touchstart', _boundOnTouchStart.get(this));
+          $handle.addEventListener('touchmove', _boundOnTouchMove.get(this));
+          $handle.addEventListener('touchend', _boundOnTouchEnd.get(this));
+
+          $handle.setAttribute('draggable', true);
+
+          _isEnabled.set(this, true);
+
+          if (!silent) {
+            _triggerEvent.call(this, 'enable');
+          }
+        }
+
+        /**
+         * Disables the resizable functionality of the drawer
+         *
+         * @param {Boolean} [silent = false] - TODO: Add description
+         */
+
+      }, {
+        key: 'disable',
+        value: function disable(silent) {
+          if (this.isDestroyed) {
+            return;
+          }
 
           var $handle = _$handle.get(this);
 
@@ -179,6 +275,37 @@
           $handle.removeEventListener('touchstart', _boundOnTouchStart.get(this));
           $handle.removeEventListener('touchmove', _boundOnTouchMove.get(this));
           $handle.removeEventListener('touchend', _boundOnTouchEnd.get(this));
+
+          _isEnabled.set(this, false);
+
+          if (!silent) {
+            _triggerEvent.call(this, 'disable');
+          }
+        }
+
+        /**
+         * Destroys this object, removing all changes it has made to all DOM elements
+         * and clearing up all memory that it was using.
+         *
+         * *WARNING:* Calling this function will result in the object becoming unusable!
+         * If you want to just disable the resizable functionality temporarily, use the
+         * `disable` & `enable` functions.
+         *
+         * @param {Boolean} [silent = false] - TODO: Add description
+         */
+
+      }, {
+        key: 'destroy',
+        value: function destroy(silent) {
+          if (this.isDestroyed) {
+            return;
+          }
+
+          this.disable(silent);
+
+          _isNotDestroyed.delete(this);
+
+          _$content.get(this).removeEventListener('scroll', _boundOnScrollContentWhileDragging.get(this));
 
           _$el.delete(this);
           _$content.delete(this);
@@ -200,6 +327,12 @@
           _boundOnTouchStart.delete(this);
           _boundOnTouchMove.delete(this);
           _boundOnTouchEnd.delete(this);
+
+          if (!silent) {
+            _triggerEvent.call(this, 'destroy');
+          }
+
+          _events.delete(this);
         }
 
         // region Getters/Setters
@@ -207,9 +340,56 @@
         /** @returns {HTMLElement} - The `HTMLElement` represented by this object. */
 
       }, {
+        key: 'addEventListener',
+
+
+        /**
+         * TODO: Add description
+         *
+         * @param  {String}   eventName    - TODO: Add description
+         * @param  {Function} eventHandler - TODO: Add description
+         */
+        value: function addEventListener(eventName, eventHandler) {
+          var events = _events.get(this);
+          var eventHandlers = events[eventName];
+
+          if (eventHandlers == null) {
+            eventHandlers = events[eventName] = new Set();
+          }
+
+          eventHandlers.add(eventHandler);
+        }
+
+        /**
+         * TODO: Add description
+         *
+         * @param  {String}   eventName    - TODO: Add description
+         * @param  {Function} eventHandler - TODO: Add description
+         */
+
+      }, {
+        key: 'removeEventListener',
+        value: function removeEventListener(eventName, eventHandler) {
+          var events = _events.get(this);
+          var eventHandlers = events[eventName];
+
+          if (eventHandlers == null) {
+            return;
+          }
+
+          eventHandlers.delete(eventHandler);
+
+          if (eventHandlers.size === 0) {
+            delete events[eventName];
+          }
+        }
+
+        // endregion
+
+      }, {
         key: '$el',
         get: function get() {
-          return _$el.get(this);
+          return this.isDestroyed ? undefined : _$el.get(this);
         }
 
         /** @returns {Number} - The "original" height of the drawer content element (in pixels). */
@@ -217,15 +397,20 @@
       }, {
         key: 'contentOriginalHeight',
         get: function get() {
-          return _contentOriginalHeight.get(this);
+          return this.isDestroyed ? undefined : _contentOriginalHeight.get(this);
         }
 
         /** @param {Number} value - The "original" height of the drawer contentElement (in pixels). */
         ,
         set: function set(value) {
+          if (this.isDestroyed) {
+            return;
+          }
+
           if (typeof value !== 'number' && !(value instanceof Number)) {
             throw new TypeError('\'contentOriginalHeight\' must be a Number, but a ' + (typeof value === 'undefined' ? 'undefined' : _typeof(value)) + ' was given.');
           }
+
           _contentOriginalHeight.set(this, value);
         }
 
@@ -234,16 +419,37 @@
       }, {
         key: 'contentMinHeight',
         get: function get() {
-          return _contentMinHeight.get(this);
+          return this.isDestroyed ? undefined : _contentMinHeight.get(this);
         }
 
         /** @param {Number} value - The minimum height of the drawer contentElement (in pixels). */
         ,
         set: function set(value) {
+          if (this.isDestroyed) {
+            return;
+          }
+
           if (typeof value !== 'number' && !(value instanceof Number)) {
             throw new TypeError('\'contentMinHeight\' must be a Number, but a ' + (typeof value === 'undefined' ? 'undefined' : _typeof(value)) + ' was given.');
           }
+
           _contentMinHeight.set(this, value);
+        }
+
+        /** @returns {Boolean} */
+
+      }, {
+        key: 'isEnabled',
+        get: function get() {
+          return !this.isDestroyed && _isEnabled.get(this) === true;
+        }
+
+        /** @returns {Boolean} */
+
+      }, {
+        key: 'isOpen',
+        get: function get() {
+          return !this.isDestroyed && _isOpen.get(this) === true;
         }
 
         /** @returns {Boolean} */
@@ -253,9 +459,6 @@
         get: function get() {
           return _isNotDestroyed.get(this) !== true;
         }
-
-        // endregion
-
       }]);
 
       return ResizableDrawer;
@@ -296,6 +499,27 @@
       _$content.get(this).removeEventListener('scroll', _boundOnScrollContentWhileDragging.get(this));
 
       _boundOnScrollContentWhileDragging.delete(this);
+    }
+
+    /** @private */
+    function _triggerEvent(eventName) {
+      var _this = this;
+
+      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+
+      var eventHandlers = _events.get(this)[eventName];
+
+      if (eventHandlers == null) {
+        return;
+      }
+
+      eventHandlers.forEach(function (eventHandler) {
+        Promise.resolve().then(function () {
+          return eventHandler.apply(undefined, [_this].concat(args));
+        });
+      });
     }
 
     // region Event Handlers
