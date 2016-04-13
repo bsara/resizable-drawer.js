@@ -1,0 +1,83 @@
+body {
+  padding: 50px;
+}
+
+
+nav a {
+  font-size:       0.90rem;
+  text-decoration: none;
+  color:           #c00;
+}
+
+nav a:hover {
+  color:       #d00;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.15);
+}
+
+nav a:not(:first-child) {
+  margin-left: 15px;
+}
+
+nav a.right {
+  float: right;
+}
+
+
+h1,
+#buttonWrapper {
+  text-align: center;
+}
+
+
+button {
+  padding:       6px 10px 3px 10px;
+  border:        none;
+  border-bottom: solid 2px #800;
+  border-radius: 2px;
+  background:    #c00;
+  color:         #fff;
+}
+
+
+button:hover {
+  background: #d00;
+}
+
+
+button:active {
+  background: #a00;
+}
+
+
+article {
+  padding:       10px;
+  background:    #ddd;
+  border-radius: 5px;
+}
+
+
+article,
+.resizable-drawer {
+  margin-top:    20px;
+  border-radius: 5px;
+  box-shadow:    0 2px 5px #aaa;
+}
+
+
+.resizable-drawer-content {
+  padding:                 5px;
+  border:                  solid 5px gray;
+  border-top-left-radius:  5px;
+  border-top-right-radius: 5px;
+}
+
+
+.resizable-drawer-handle {
+  height:                     1.75rem;
+  font-weight:                900;
+  text-align:                 center;
+  line-height:                1.5rem;
+  background:                 #ccc;
+  border-bottom-left-radius:  5px;
+  border-bottom-right-radius: 5px;
+}
