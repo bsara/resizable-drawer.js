@@ -30,7 +30,7 @@ and is **mobile friendly!**.
 
 ## Basic Usage
 
-[**JS Bin Demo**](http://output.jsbin.com/rokuyu)
+[![JSBin](readme-files/jsbin.png) **JSBin Demo**](http://output.jsbin.com/rokuyu)
 
 #### JavaScript
 
