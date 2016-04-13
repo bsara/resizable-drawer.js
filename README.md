@@ -32,8 +32,6 @@ and is **mobile friendly!**.
 
 [**JS Bin Demo**](http://output.jsbin.com/rokuyu)
 
-<br/>
-
 #### JavaScript
 
 ```javascript
