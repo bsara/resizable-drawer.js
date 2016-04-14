@@ -1,5 +1,5 @@
 /*!
- * resizable-drawer.js (1.0.0-beta.10)
+ * resizable-drawer.js (1.0.0-beta.11)
  *
  * Copyright (c) 2016 Brandon Sara (http://bsara.github.io)
  * Licensed under the CPOL-1.02 (https://github.com/bsara/resizable-drawer.js/blob/master/LICENSE.md)
@@ -76,7 +76,7 @@ export default (function() {
      */
     constructor({el, contentOriginalHeight, contentMinHeight = 0, startEnabled = true, startOpen = true}) {
       if (new.target == null) {
-        return new ResizableDrawer.apply(this, arguments);
+        return new ResizableDrawer(...arguments);
       }
 
 
@@ -114,14 +114,14 @@ export default (function() {
       if (startEnabled) {
         this.enable(true);
       } else {
-        _isEnabled.set(this, false);
+        this.disable(true);
       }
 
 
       if (startOpen) {
         this.open(true);
       } else {
-        _isOpen.set(this, false);
+        this.close(true);
       }
     }
 

@@ -13,8 +13,5 @@
 
 
 .resizable-drawer.resizable-drawer-closed .resizable-drawer-content {
-  height:   0;
-  padding:  0;
-  border:   none;
-  overflow: hidden;
+  display: hidden;
 }

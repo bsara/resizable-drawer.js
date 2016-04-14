@@ -108,14 +108,14 @@ export default (function() {
       if (startEnabled) {
         this.enable(true);
       } else {
-        _isEnabled.set(this, false);
+        this.disable(true);
       }
 
 
       if (startOpen) {
         this.open(true);
       } else {
-        _isOpen.set(this, false);
+        this.close(true);
       }
     }
 
