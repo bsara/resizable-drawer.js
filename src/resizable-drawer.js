@@ -70,7 +70,7 @@ export default (function() {
      */
     constructor({el, contentOriginalHeight, contentMinHeight = 0, startEnabled = true, startOpen = true}) {
       if (new.target == null) {
-        return new ResizableDrawer.apply(this, arguments);
+        return new ResizableDrawer(...arguments);
       }
 
 
