@@ -7,6 +7,7 @@ const babel        = require('gulp-babel');
 const concat       = require('gulp-concat');
 const cssmin       = require('gulp-cssmin');
 const del          = require('del');
+const escapeRegex  = require('escape-string-regexp');
 const insert       = require('gulp-insert');
 const jscs         = require('gulp-jscs');
 const jscsStylish  = require('gulp-jscs-stylish');
@@ -47,7 +48,9 @@ var config = {
   tests:   { dir: 'test/' }
 };
 
+
 // jscs:disable disallowOperatorBeforeLineBreak
+
 config.fileHeader =
 `/*!
  * ${config.pkg.name}.js (${config.pkg.version})
@@ -56,7 +59,25 @@ config.fileHeader =
  * Licensed under the CPOL-1.02 (https://github.com/bsara/resizable-drawer.js/blob/master/LICENSE.md)
  */
 `;
+
+config.umdHeader =
+`;(function(root, factory) {
+  if (typeof define === 'function' && define.amd) {
+    define(factory);
+    return;
+  }
+  if (typeof exports === 'object') {
+    module.exports = factory(require, exports, module);
+    return;
+  }
+  root.ResizableDrawer = factory(undefined, {}, undefined);
+}(this, function(require, exports, module) {
+`;
+
+config.umdFooter = '\n}));\n';
+
 // jscs:enable disallowOperatorBeforeLineBreak
+
 
 config.lint.selectors = [
   'gulpfile.js',
@@ -118,8 +139,11 @@ gulp.task('build:scripts', function() {
              .pipe(gulp.dest(config.build.dir))
              .pipe(sourcemaps.init())
              .pipe(babel())
+             .pipe(replace(new RegExp(escapeRegex(config.fileHeader), 'g'), String.EMPTY))
              .pipe(concat(`${config.pkg.name}.es5.js`))
-             .pipe(replace(/global\.resizableDrawer = mod\.exports/g, "global.ResizableDrawer = mod.exports.default"))
+             .pipe(replace(/exports\.default\s=/g, "return exports.default ="))
+             .pipe(insert.prepend(config.umdHeader))
+             .pipe(insert.append(config.umdFooter))
              .pipe(insert.prepend(config.fileHeader))
              .pipe(sourcemaps.write('.'))
              .pipe(gulp.dest(config.build.dir));

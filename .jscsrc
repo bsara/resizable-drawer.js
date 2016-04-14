@@ -1,4 +1,11 @@
 {
+  "excludeFiles": [
+    "**/build/**",
+    "**/dist/**",
+    "**/node_modules/**"
+  ],
+
+
   "disallowEmptyBlocks": true,
   "disallowIdentifierNames": [
     "that"
