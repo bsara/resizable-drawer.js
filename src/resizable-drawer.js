@@ -76,7 +76,7 @@ export default (function() {
 
       if (arguments.length > 0 && arguments[0] instanceof HTMLElement) {
         el = arguments[0];
-      } else if (el == null || ~(el instanceof HTMLElement)) {
+      } else if (el == null || !(el instanceof HTMLElement)) {
         throw new ReferenceError(`'el' is a required parameter and must be of type 'HTMLElement' when creating a new 'ResizableDrawer'!`);
       }
 

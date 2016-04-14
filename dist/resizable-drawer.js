@@ -1,5 +1,5 @@
 /*!
- * resizable-drawer.js (1.0.0-beta.9)
+ * resizable-drawer.js (1.0.0-beta.10)
  *
  * Copyright (c) 2016 Brandon Sara (http://bsara.github.io)
  * Licensed under the CPOL-1.02 (https://github.com/bsara/resizable-drawer.js/blob/master/LICENSE.md)
@@ -82,7 +82,7 @@ export default (function() {
 
       if (arguments.length > 0 && arguments[0] instanceof HTMLElement) {
         el = arguments[0];
-      } else if (el == null || ~(el instanceof HTMLElement)) {
+      } else if (el == null || !(el instanceof HTMLElement)) {
         throw new ReferenceError(`'el' is a required parameter and must be of type 'HTMLElement' when creating a new 'ResizableDrawer'!`);
       }
 
