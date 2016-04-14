@@ -13,5 +13,5 @@
 
 
 .resizable-drawer.resizable-drawer-closed .resizable-drawer-content {
-  display: hidden;
+  display: none;
 }
