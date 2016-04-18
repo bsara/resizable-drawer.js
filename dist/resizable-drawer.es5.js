@@ -1,5 +1,5 @@
 /*!
- * resizable-drawer.js (1.0.0-beta.12)
+ * resizable-drawer.js (1.0.0-beta.13)
  *
  * Copyright (c) 2016 Brandon Sara (http://bsara.github.io)
  * Licensed under the CPOL-1.02 (https://github.com/bsara/resizable-drawer.js/blob/master/LICENSE.md)
@@ -20,8 +20,6 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
@@ -51,8 +49,6 @@ return exports.default = function () {
   var _$content = new WeakMap();
   var _$handle = new WeakMap();
 
-  var _contentMinHeight = new WeakMap();
-  var _contentOriginalHeight = new WeakMap();
   var _contentStartHeight = new WeakMap();
   var _contentStartScrollTop = new WeakMap();
 
@@ -86,11 +82,9 @@ return exports.default = function () {
     /**
      * @param {Object|HTMLElement} options - TODO: Add description
      *
-     * @param {HTMLElement} options.el                      - TODO: Add description
-     * @param {Number}      [options.contentOriginalHeight] - TODO: Add description
-     * @param {Number}      [options.contentMinHeight = 0]  - TODO: Add description
-     * @param {Boolean}     [options.startEnabled = true]   - TODO: Add description
-     * @param {Boolean}     [options.startOpen = true]      - TODO: Add description
+     * @param {HTMLElement} options.el                    - TODO: Add description
+     * @param {Boolean}     [options.startEnabled = true] - TODO: Add description
+     * @param {Boolean}     [options.startOpen = true]    - TODO: Add description
      *
      * @throws {TypeError} If `el` is not given and options is not of type `HTMLElement`.
      *
@@ -99,19 +93,12 @@ return exports.default = function () {
 
     function ResizableDrawer(_ref) {
       var el = _ref.el;
-      var contentOriginalHeight = _ref.contentOriginalHeight;
-      var _ref$contentMinHeight = _ref.contentMinHeight;
-      var contentMinHeight = _ref$contentMinHeight === undefined ? 0 : _ref$contentMinHeight;
       var _ref$startEnabled = _ref.startEnabled;
       var startEnabled = _ref$startEnabled === undefined ? true : _ref$startEnabled;
       var _ref$startOpen = _ref.startOpen;
       var startOpen = _ref$startOpen === undefined ? true : _ref$startOpen;
 
       _classCallCheck(this, ResizableDrawer);
-
-      if (new.target == null) {
-        return new (Function.prototype.bind.apply(ResizableDrawer, [null].concat(Array.prototype.slice.call(arguments))))();
-      }
 
       if (arguments.length > 0 && arguments[0] instanceof HTMLElement) {
         el = arguments[0];
@@ -120,8 +107,6 @@ return exports.default = function () {
       }
 
       _isNotDestroyed.set(this, true);
-
-      this.contentMinHeight = contentMinHeight;
 
       _events.set(this, {});
 
@@ -151,8 +136,7 @@ return exports.default = function () {
     }
 
     /**
-     * Opens the drawer (only has any effect if a specific `contentMinHeight`
-     * is given upon object creation).
+     * Opens the drawer.
      *
      * @param {Boolean} [silent = false] - TODO: Add description
      */
@@ -313,6 +297,32 @@ return exports.default = function () {
       }
 
       /**
+       * Opens the drawer and enables the drawer resizable functionality.
+       *
+       * @param {Boolean} [silent = false] - TODO: Add description
+       */
+
+    }, {
+      key: 'openAndEnable',
+      value: function openAndEnable(silent) {
+        this.open(silent);
+        this.enable(silent);
+      }
+
+      /**
+       * Closes the drawer and disables the drawer resizable functionality.
+       *
+       * @param {Boolean} [silent = false] - TODO: Add description
+       */
+
+    }, {
+      key: 'closeAndDisable',
+      value: function closeAndDisable(silent) {
+        this.disable(silent);
+        this.close(silent);
+      }
+
+      /**
        * Destroys this object, removing all changes it has made to all DOM elements
        * and clearing up all memory that it was using.
        *
@@ -340,8 +350,6 @@ return exports.default = function () {
         _$content.delete(this);
         _$handle.delete(this);
 
-        _contentMinHeight.delete(this);
-        _contentOriginalHeight.delete(this);
         _contentStartHeight.delete(this);
         _contentStartScrollTop.delete(this);
 
@@ -421,50 +429,6 @@ return exports.default = function () {
         return this.isDestroyed ? undefined : _$el.get(this);
       }
 
-      /** @returns {Number} - The "original" height of the drawer content element (in pixels). */
-
-    }, {
-      key: 'contentOriginalHeight',
-      get: function get() {
-        return this.isDestroyed ? undefined : _contentOriginalHeight.get(this);
-      }
-
-      /** @param {Number} value - The "original" height of the drawer contentElement (in pixels). */
-      ,
-      set: function set(value) {
-        if (this.isDestroyed) {
-          return;
-        }
-
-        if (typeof value !== 'number' && !(value instanceof Number)) {
-          throw new TypeError('\'contentOriginalHeight\' must be a Number, but a ' + (typeof value === 'undefined' ? 'undefined' : _typeof(value)) + ' was given.');
-        }
-
-        _contentOriginalHeight.set(this, value);
-      }
-
-      /** @returns {Number} - The minimum height of the drawer content element (in pixels). */
-
-    }, {
-      key: 'contentMinHeight',
-      get: function get() {
-        return this.isDestroyed ? undefined : _contentMinHeight.get(this);
-      }
-
-      /** @param {Number} value - The minimum height of the drawer contentElement (in pixels). */
-      ,
-      set: function set(value) {
-        if (this.isDestroyed) {
-          return;
-        }
-
-        if (typeof value !== 'number' && !(value instanceof Number)) {
-          throw new TypeError('\'contentMinHeight\' must be a Number, but a ' + (typeof value === 'undefined' ? 'undefined' : _typeof(value)) + ' was given.');
-        }
-
-        _contentMinHeight.set(this, value);
-      }
-
       /** @returns {Boolean} */
 
     }, {
@@ -511,7 +475,7 @@ return exports.default = function () {
 
   /** @private */
   function _processDrag(e) {
-    if (e.clientY < this.contentMinHeight) {
+    if (e.clientY < 0) {
       return;
     }
 
