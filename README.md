@@ -57,7 +57,7 @@ myResizableDrawer.destroy();
 
 ...
 
-<div id="myResizableDrawerElement" class=".resizable-drawer">
+<div id="myResizableDrawerElement" class="resizable-drawer">
   <div class="resizable-drawer-content">...</div>
   <div class="resizable-drawer-handle">&hellip;</div>
 </div>
@@ -90,7 +90,7 @@ myResizableDrawer.destroy();
 
 ...
 
-<div id="myResizableDrawerElement" class=".resizable-drawer">
+<div id="myResizableDrawerElement" class="resizable-drawer">
   <div class="resizable-drawer-content">...</div>
   <div class="resizable-drawer-handle">&hellip;</div>
 </div>
