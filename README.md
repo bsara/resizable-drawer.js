@@ -1,5 +1,5 @@
 
-# resizable-drawer.js [![Build Status](https://img.shields.io/travis/bsara/resizable-drawer.js.svg)](https://travis-ci.org/bsara/resizable-drawer.js?style=flat-square)
+# resizable-drawer.js [![Build Status](https://img.shields.io/travis/bsara/resizable-drawer.js.svg?style=flat-square)](https://travis-ci.org/bsara/resizable-drawer.js)
 
 
 [![CPOL v1.02 License](https://img.shields.io/badge/license-CPOL--1.02-blue.svg?style=flat-square)](https://github.com/bsara/resizable-drawer.js/blob/master/LICENSE.md)
@@ -21,13 +21,13 @@ script tag and is **mobile friendly!**.
 - **Bower:** `$ bower install --save resizable-drawer`
 - **CDN - ES6:**
 ```
-<script src="//npmcdn.com/resizable-drawer@1.0.0-beta.13/dist/resizable-drawer.js"></script>
-<link rel="stylesheet" type="text/css" src="//npmcdn.com/resizable-drawer@1.0.0-beta.13/dist/resizable-drawer.min.css">
+<script src="//npmcdn.com/resizable-drawer@1.0.0/dist/resizable-drawer.js"></script>
+<link rel="stylesheet" type="text/css" src="//npmcdn.com/resizable-drawer@1.0.0/dist/resizable-drawer.min.css">
 ```
 - **CDN - ES5:**
 ```
-<script src="//npmcdn.com/resizable-drawer@1.0.0-beta.13/dist/resizable-drawer.es5.js"></script>`
-<link rel="stylesheet" type="text/css" src="//npmcdn.com/resizable-drawer@1.0.0-beta.13/dist/resizable-drawer.min.css">
+<script src="//npmcdn.com/resizable-drawer@1.0.0/dist/resizable-drawer.es5.js"></script>`
+<link rel="stylesheet" type="text/css" src="//npmcdn.com/resizable-drawer@1.0.0/dist/resizable-drawer.min.css">
 ```
 
 - [**Download**](https://github.com/bsara/resizable-drawer.js/releases)

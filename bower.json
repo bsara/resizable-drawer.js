@@ -1,6 +1,6 @@
 {
   "name": "resizable-drawer",
-  "version": "1.0.0-beta.14",
+  "version": "1.0.0",
   "description": "A simple implementation of a resizable drawer using only native JS and CSS.",
   "authors": [
     "Brandon Sara (http://bsara.github.io)"
@@ -16,7 +16,7 @@
     "resizable",
     "drawer"
   ],
-  "main": "dist/resizable-drawer.js",
+  "main": "dist/resizable-drawer.es5.js",
   "files": [
     "/dist/*.js",
     "/dist/*.css",

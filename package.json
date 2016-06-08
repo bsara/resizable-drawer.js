@@ -1,19 +1,13 @@
 {
   "name": "resizable-drawer",
-  "version": "1.0.0-beta.14",
+  "version": "1.0.0",
   "description": "A simple implementation of a resizable drawer using only native JS and CSS.",
   "authors": [
     "Brandon Sara (http://bsara.github.io)"
   ],
   "license": "CPOL-1.02",
   "homepage": "https://github.com/bsara/resizable-drawer.js#readme",
-  "bugs": {
-    "url": "https://github.com/bsara/resizable-drawer.js/issues"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/bsara/resizable-drawer.js.git"
-  },
+  "repository": "bsara/resizable-drawer.js",
   "keywords": [
     "resize",
     "resizable",
@@ -49,7 +43,7 @@
     "gulp-jshint": "^2.0.0",
     "gulp-rename": "^1.2.2",
     "gulp-replace": "^0.5.4",
-    "gulp-sourcemaps": "^1.6.0",
+    "gulp-sourcemaps": "^2.0.0-alpha",
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.7",
     "jshint": "^2.9.1",

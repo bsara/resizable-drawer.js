@@ -102,7 +102,7 @@ gulp.task('help', function() {
 
   console.log(String.EMPTY);
   console.log(header(`${config.pkg.name}.js Gulp Tasks`));
-  console.log(header("------------------------------------------------------------------------------"));
+  console.log(header(`------------------------------------------------------------------------------`));
   console.log(`  ${task("help")} (${util.colors.yellow("default")}) - Displays this message.`);
   console.log(String.EMPTY);
   console.log(`  ${task("build")}          - Builds the project.`);

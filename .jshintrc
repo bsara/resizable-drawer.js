@@ -6,8 +6,7 @@
   "esnext": true,
   "predef": [
     "document",
-    "window",
-    "_sth"
+    "window"
   ],
 
   "debug": false,
