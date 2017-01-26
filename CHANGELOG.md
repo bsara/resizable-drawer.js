@@ -1,4 +1,4 @@
-## [v1.0.1](https://github.com/bsara/resizable-drawer.js/tree/v1.0.1) (2017-01-25)
+## [v1.0.2](https://github.com/bsara/resizable-drawer.js/tree/v1.0.2) (2017-01-25)
 
 * **[Feature]** Added SCSS version of project's CSS to allow for easy SCSS file importing.
 

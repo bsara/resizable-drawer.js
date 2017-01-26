@@ -1,5 +1,5 @@
 /*!
- * resizable-drawer.js (1.0.1)
+ * resizable-drawer.js (1.0.2)
  *
  * Copyright (c) 2017 Brandon Sara (http://bsara.github.io)
  * Licensed under the CPOL-1.02 (https://github.com/bsara/resizable-drawer.js/blob/master/LICENSE.md)
