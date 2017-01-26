@@ -21,13 +21,13 @@ script tag and is **mobile friendly!**.
 - **Bower:** `$ bower install --save resizable-drawer`
 - **CDN - ES6:**
 ```
-<script src="//unpkg.com/resizable-drawer@1.0.0/dist/resizable-drawer.js"></script>
-<link rel="stylesheet" type="text/css" src="//unpkg.com/resizable-drawer@1.0.0/dist/resizable-drawer.min.css">
+<script src="//unpkg.com/resizable-drawer@1.0.1/dist/resizable-drawer.js"></script>
+<link rel="stylesheet" type="text/css" src="//unpkg.com/resizable-drawer@1.0.1/dist/resizable-drawer.min.css">
 ```
 - **CDN - ES5:**
 ```
-<script src="//unpkg.com/resizable-drawer@1.0.0/dist/resizable-drawer.es5.js"></script>`
-<link rel="stylesheet" type="text/css" src="//unpkg.com/resizable-drawer@1.0.0/dist/resizable-drawer.min.css">
+<script src="//unpkg.com/resizable-drawer@1.0.1/dist/resizable-drawer.es5.js"></script>`
+<link rel="stylesheet" type="text/css" src="//unpkg.com/resizable-drawer@1.0.1/dist/resizable-drawer.min.css">
 ```
 
 - [**Download**](https://github.com/bsara/resizable-drawer.js/releases)
@@ -35,7 +35,7 @@ script tag and is **mobile friendly!**.
 
 ## Basic Usage
 
-[![JSBin](readme-files/jsbin.png) **JSBin Demo**](http://output.jsbin.com/rokuyu)
+[![JSBin](https://github.com/bsara/resizable-drawer.js/raw/master/readme-files/jsbin.png) **JSBin Demo**](http://output.jsbin.com/rokuyu)
 
 #### JavaScript
 

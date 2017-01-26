@@ -1,7 +1,7 @@
 /*!
- * resizable-drawer.js (1.0.0)
+ * resizable-drawer.js (1.0.1)
  *
- * Copyright (c) 2016 Brandon Sara (http://bsara.github.io)
+ * Copyright (c) 2017 Brandon Sara (http://bsara.github.io)
  * Licensed under the CPOL-1.02 (https://github.com/bsara/resizable-drawer.js/blob/master/LICENSE.md)
  */
 ;(function(root, factory) {
@@ -25,7 +25,6 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-
 return exports.default = function () {
 
   // region Private Constants
@@ -40,6 +39,7 @@ return exports.default = function () {
   var CSS_CLASS_DISABLED = 'resizable-drawer-enabled';
 
   // endregion
+
 
   // region Private Property WeakMaps
 
@@ -71,6 +71,7 @@ return exports.default = function () {
 
   // endregion
 
+
   /**
    * TODO: Add description
    *
@@ -90,13 +91,12 @@ return exports.default = function () {
      *
      * @constructor
      */
-
     function ResizableDrawer(_ref) {
-      var el = _ref.el;
-      var _ref$startEnabled = _ref.startEnabled;
-      var startEnabled = _ref$startEnabled === undefined ? true : _ref$startEnabled;
-      var _ref$startOpen = _ref.startOpen;
-      var startOpen = _ref$startOpen === undefined ? true : _ref$startOpen;
+      var el = _ref.el,
+          _ref$startEnabled = _ref.startEnabled,
+          startEnabled = _ref$startEnabled === undefined ? true : _ref$startEnabled,
+          _ref$startOpen = _ref.startOpen,
+          startOpen = _ref$startOpen === undefined ? true : _ref$startOpen;
 
       _classCallCheck(this, ResizableDrawer);
 
@@ -569,6 +569,7 @@ return exports.default = function () {
   }
 
   // endregion
+
 
   return ResizableDrawer;
 }();

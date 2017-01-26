@@ -158,6 +158,8 @@ gulp.task('build:styles', function() {
              }))
              .pipe(concat(`${config.pkg.name}.css`))
              .pipe(insert.prepend(config.fileHeader))
+             .pipe(gulp.dest(config.build.dir))
+             .pipe(rename({ extname: '.scss' }))
              .pipe(gulp.dest(config.build.dir));
 });
 
